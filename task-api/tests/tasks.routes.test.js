@@ -7,6 +7,14 @@ describe('Task routes', () => {
     taskService._reset();
   });
 
+  it('happy path: GET / returns a basic status payload instead of a 404', async () => {
+    const res = await request(app).get('/');
+
+    expect(res.status).toBe(200);
+    expect(res.body.status).toBe('ok');
+    expect(res.body.endpoints).toBe('/tasks');
+  });
+
   // NOTE: express.json() itself flags a malformed body as a 400-level
   // SyntaxError, but app.js's generic error-handling middleware does not
   // inspect err.status and always responds 500. This test documents the

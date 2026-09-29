@@ -4,6 +4,15 @@ const taskRoutes = require('./routes/tasks');
 const app = express();
 
 app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({
+    name: 'Task API',
+    status: 'ok',
+    endpoints: '/tasks',
+  });
+});
+
 app.use('/tasks', taskRoutes);
 
 app.use((err, req, res, next) => {
